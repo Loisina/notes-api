@@ -25,7 +25,7 @@ export const registerUser = async (req, res, next) => {
         password : hashedPassword
       })
 
-     const sendWelcomeEmail = sendEmail(newUser.email, "Welcome to My Notes App! 🎉", `${newUser.userName}`);
+     const sendWelcomeEmail = sendEmail(newUser.email, "Welcome to My Notes App! 🎉", newUser.userName);
 
 console.log(sendWelcomeEmail)
 

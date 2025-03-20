@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import "dotenv/config"
-import fs from "fs"
+
 
 
 const transporter = nodemailer.createTransport({
@@ -13,27 +13,6 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-`<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to My Notes App</title>
-</head>
-<body style="font-family: Arial, sans-serif; color: #333; background-color: #f4f4f4; padding: 20px;">
-    <table width="100%" cellpadding="0" cellspacing="0">
-        <tr>
-            <td align="center">
-                <table width="600px" cellpadding="20" cellspacing="0" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-                    <tr>
-                        <td align="center">
-                            <h2 style="color: #2c3e50;">Welcome to My Notes App</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Dear <strong>Lois</strong>,</p>
-                            <p>Thank you for signing up for My Notes App. We are excited to have you on board and lo
-`
 
 export const sendEmail = async (to,subject, userName) => {
     const emailTemplate = `<!DOCTYPE html>
@@ -41,7 +20,7 @@ export const sendEmail = async (to,subject, userName) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Notes App</title>
+    <title>Welcome to My Notes App </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -83,7 +62,7 @@ export const sendEmail = async (to,subject, userName) => {
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to My Notes App</h1>
+        <h1>Welcome to My Notes App ${userName}</h1>
         <p>Keep your thoughts, ideas, and to-do lists organized in one place.</p>
         <a href="#" class="btn">Get Started</a>
     </div>
