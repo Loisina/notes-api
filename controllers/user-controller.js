@@ -2,17 +2,21 @@ import { User } from "../models/user-model.js";
 import { userValidator, loginValidator } from "../validators/user-validator.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
+import { sendEmail } from "../utils/mailing.js";
+
+
 
 
 export const registerUser = async (req, res, next) => {
   try{
     const {error, value} = userValidator.validate(req.body)
     if (error) {
-      res.status(400).json({massage: error.details[0].message})
+     return res.status(400).json({message: error.details[0].message})
     }
     const existingUser = await User.findOne({email: value.email})
     if (existingUser) {
-      res.status(409).json({message: "User already exists"})
+      return res.status(409).json({message: "User already exists"})
     }else{
       const hashedPassword = await bcrypt.hash(value.password, 12)
       const newUser = await User.create({
@@ -20,10 +24,16 @@ export const registerUser = async (req, res, next) => {
         email: value.email,
         password : hashedPassword
       })
-      res.status(201).json ({
+
+     const sendWelcomeEmail = sendEmail(newUser.email, "Welcome to My Notes App! 🎉", `${newUser.userName}`);
+
+console.log(sendWelcomeEmail)
+
+    return  res.status(201).json ({
         message: "User created successfully",
         data: newUser
       })
+      
     }
       
     }catch (error) {
@@ -51,7 +61,12 @@ try {
    }
   return res.status(200).json({message: "Login Sucessful"})
 
+  
+
 } catch (error) {
   next(error)
 }
 }
+
+
+
